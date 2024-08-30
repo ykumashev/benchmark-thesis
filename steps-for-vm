@@ -11,7 +11,20 @@ Install go (for thesis i used version 1.22.3)
 git clone https://github.com/tendermint/tendermint.git
 cd tendermint
 make install
+open new terminal
+tendermint version
+
+
+install docker
+sudo usermod -aG docker ${USER} //adds your user to the docker group
+
+
+install docker-compose
+
+
+tendermint testnet
 
 
 
-
+Quorum:
+everything is inside docker file so no need to install anything

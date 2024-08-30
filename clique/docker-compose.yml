@@ -1,0 +1,79 @@
+version: '3'
+services:
+
+  geth-bootnode:
+    hostname: geth-bootnode
+    environment:
+      - nodekeyhex=08f0e1dee5c1b4645f3331a566009e41a4514b6cd28656d63d0449ecf812812b #Needs to be fix, so that the miners know the resulting enode id
+    build:
+      context: ./bootnode
+    ports:
+      - 30301:30301/udp
+    networks:
+      chainnet:
+        ipv4_address: 172.25.0.101 # The miners need to know the IP address later on
+
+  node1:
+    image: geth-node:latest
+    build: .
+    volumes:
+      - ./node1:/root/.ethereum
+    environment:
+      - NODE_NAME=node1
+    ports:
+      - "8501:8545"
+    depends_on:
+      - geth-bootnode
+    networks:
+      chainnet:
+        ipv4_address: 172.25.0.102
+
+  node2:
+    image: geth-node:latest
+    build: .
+    volumes:
+      - ./node2:/root/.ethereum
+    environment:
+      - NODE_NAME=node2
+    ports:
+      - "8502:8545"
+    depends_on:
+      - geth-bootnode
+    networks:
+      chainnet:
+        ipv4_address: 172.25.0.103
+
+  node3:
+    image: geth-node:latest
+    build: .
+    volumes:
+      - ./node3:/root/.ethereum
+    environment:
+      - NODE_NAME=node3
+    ports:
+      - "8503:8545"
+    depends_on:
+      - geth-bootnode
+    networks:
+      chainnet:
+        ipv4_address: 172.25.0.104
+
+  # node4:
+  #   image: geth-node:latest
+  #   build: .
+  #   volumes:
+  #     - ./node4:/root/.ethereum
+  #   environment:
+  #     - NODE_NAME=node4
+  #   depends_on:
+  #     - geth-bootnode
+  #   networks:
+  #     chainnet:
+  #       ipv4_address: 172.25.0.105
+
+networks:
+  chainnet:
+    driver: bridge
+    ipam:
+      config:
+      - subnet: 172.25.0.0/24

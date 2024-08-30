@@ -2,56 +2,55 @@ import loadtest from 'loadtest';
 
 // Define the list of available endpoints
 const ports = [
-  '22000',
-  '22001',
-  '22002'
+  '8501',
+  '8502',
+  '8503'
 ];
-
-function getRandomPort() {
-  const randomIndex = Math.floor(Math.random() * ports.length);
-  return ports[randomIndex];
-}
 
 // Define the map of `from` addresses based on the endpoint
 const addressMap = {
-  'http://localhost:22000': "0xed9d02e382b34818e88b88a309c7fe71e65f419d",
-  'http://localhost:22001': "0xca843569e3427144cead5e4d5999a3d0ccf92b8e",
-  'http://localhost:22002': "0x0fbdc686b912d7722dc86510934589e0aaf3b55a",
-  'http://localhost:22003': "0x9186eb3d20cbd1f5f992a950d808c4495153abd5",
-  'http://localhost:22004': "0x0638e1574728b6d862dd5d3a3e0942c3be47d996"
+  '8501': "0x3E488C51303FdB75F3443848BC1ce0098052CFBc",
+  '8502': "0x3ae3f6639beD20F1e51A7eB05c82E86d21A67b27",
+  '8503': "0x59e6Cb834fa3B26db583AF4d9F246f8dE6734FaD"
 }
 
-function createRequestBody(fromAddress) {
+function createRequestBody(fromAddress, toAddress) {
   return JSON.stringify({
       jsonrpc: "2.0",
       method: "eth_sendTransaction",
       params: [
       {
           from: fromAddress,
-          to: fromAddress,
-          value: "0x225a0"
+          to: toAddress,
+          value: "0x5a0"
       }
       ],
       id: 1
   });
 }
 
+function getRandomPort() {
+  const randomIndex = Math.floor(Math.random() * ports.length);
+  return ports[randomIndex];
+}
+
 const options = {
-  url: 'http://localhost:22002', // This will be overwritten in the requestGenerator
+  url: 'http://localhost:8501', // This will be overwritten in the requestGenerator
   method: 'POST',
   concurrency: 100,
-  maxRequests: 1000,
+  maxRequests: 10000,
   headers: {
     'Content-Type': 'application/json',
   },
   requestGenerator: (params, options, client, callback) => {
     const randomPort = getRandomPort();
-    const fromAddress = addressMap['http://localhost:'+randomPort];
-
+    const fromAddress = addressMap[randomPort];
+    const toAddress = addressMap[getRandomPort()];
+    
     // Copy options to avoid mutation
     var customOptions = Object.assign({}, options);
     customOptions.port = randomPort;
-    customOptions.body = createRequestBody(fromAddress);
+    customOptions.body = createRequestBody(fromAddress, toAddress);
 
     const request = client(customOptions, callback);
     request.write(customOptions.body);

@@ -14,21 +14,21 @@ RUN wget https://gethstore.blob.core.windows.net/builds/geth-linux-amd64-1.13.9-
     && tar -xvzf geth-linux-amd64-1.13.9-dd938d10.tar.gz \
     && mv geth-linux-amd64-1.13.9-dd938d10/geth /usr/local/bin/ \
     && rm -rf geth-linux-amd64-1.13.9-dd938d10 geth-linux-amd64-1.13.9-dd938d10.tar.gz
-    
+
 # Copy all genesis files, initialization script, and other necessary files
-COPY signer/genesis.json .
-COPY init_node.sh .
-COPY signer/bootnode_enode .
-COPY signer/jwt.hex .
+COPY genesis.json .
+COPY init_signer_node.sh .
+COPY bootnode_enode .
+COPY jwt.hex .
 
 # Create .ethereum directory
 RUN mkdir -p /root/.ethereum
 
 # Make the script executable
-RUN chmod +x init_node.sh
+RUN chmod +x init_signer_node.sh
 
 EXPOSE 8545
 EXPOSE 30303
 
 # Set the entrypoint to run the initialization script
-ENTRYPOINT ["./init_node.sh"]
+ENTRYPOINT ["./init_signer_node.sh"]

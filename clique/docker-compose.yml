@@ -4,20 +4,24 @@ services:
   geth-bootnode:
     hostname: geth-bootnode
     environment:
-      - nodekeyhex=08f0e1dee5c1b4645f3331a566009e41a4514b6cd28656d63d0449ecf812812b #Needs to be fix, so that the miners know the resulting enode id
+      - nodekeyhex=08f0e1dee5c1b4645f3331a566009e41a4514b6cd28656d63d0449ecf812812b
     build:
       context: ./bootnode
     ports:
       - 30301:30301/udp
     networks:
       chainnet:
-        ipv4_address: 172.25.0.101 # The miners need to know the IP address later on
+        ipv4_address: 172.25.0.101
 
   node1:
-    image: geth-node:latest
-    build: .
+    image: geth-signer:latest
+    build:
+      context: ./signer
+      dockerfile: Dockerfile
     volumes:
-      - ./node1:/root/.ethereum
+      - ./nodes/node1/keystore:/root/.ethereum/keystore
+      - ./nodes/node1/password.txt:/root/.ethereum/password.txt
+      - node1_data:/root/.ethereum
     environment:
       - NODE_NAME=node1
     ports:
@@ -29,10 +33,14 @@ services:
         ipv4_address: 172.25.0.102
 
   node2:
-    image: geth-node:latest
-    build: .
+    image: geth-signer:latest
+    build:
+      context: ./signer
+      dockerfile: Dockerfile
     volumes:
-      - ./node2:/root/.ethereum
+      - ./nodes/node2/keystore:/root/.ethereum/keystore
+      - ./nodes/node2/password.txt:/root/.ethereum/password.txt
+      - node2_data:/root/.ethereum
     environment:
       - NODE_NAME=node2
     ports:
@@ -44,10 +52,14 @@ services:
         ipv4_address: 172.25.0.103
 
   node3:
-    image: geth-node:latest
-    build: .
+    image: geth-signer:latest
+    build:
+      context: ./signer
+      dockerfile: Dockerfile
     volumes:
-      - ./node3:/root/.ethereum
+      - ./nodes/node3/keystore:/root/.ethereum/keystore
+      - ./nodes/node3/password.txt:/root/.ethereum/password.txt
+      - node3_data:/root/.ethereum
     environment:
       - NODE_NAME=node3
     ports:
@@ -58,18 +70,556 @@ services:
       chainnet:
         ipv4_address: 172.25.0.104
 
-  # node4:
-  #   image: geth-node:latest
-  #   build: .
-  #   volumes:
-  #     - ./node4:/root/.ethereum
-  #   environment:
-  #     - NODE_NAME=node4
-  #   depends_on:
-  #     - geth-bootnode
-  #   networks:
-  #     chainnet:
-  #       ipv4_address: 172.25.0.105
+  node4:
+    image: geth-signer:latest
+    build:
+      context: ./signer
+      dockerfile: Dockerfile
+    volumes:
+      - ./nodes/node4/keystore:/root/.ethereum/keystore
+      - ./nodes/node4/password.txt:/root/.ethereum/password.txt
+      - node4_data:/root/.ethereum
+    environment:
+      - NODE_NAME=node4
+    ports:
+      - "8504:8545"
+    depends_on:
+      - geth-bootnode
+    networks:
+      chainnet:
+        ipv4_address: 172.25.0.105
+
+  node5:
+    image: geth-signer:latest
+    build:
+      context: ./signer
+      dockerfile: Dockerfile
+    volumes:
+      - ./nodes/node5/keystore:/root/.ethereum/keystore
+      - ./nodes/node5/password.txt:/root/.ethereum/password.txt
+      - node5_data:/root/.ethereum
+    environment:
+      - NODE_NAME=node5
+    ports:
+      - "8505:8545"
+    depends_on:
+      - geth-bootnode
+    networks:
+      chainnet:
+        ipv4_address: 172.25.0.106
+
+  node6:
+    image: geth-signer:latest
+    build:
+      context: ./signer
+      dockerfile: Dockerfile
+    volumes:
+      - ./nodes/node6/keystore:/root/.ethereum/keystore
+      - ./nodes/node6/password.txt:/root/.ethereum/password.txt
+      - node6_data:/root/.ethereum
+    environment:
+      - NODE_NAME=node6
+    ports:
+      - "8506:8545"
+    depends_on:
+      - geth-bootnode
+    networks:
+      chainnet:
+        ipv4_address: 172.25.0.107
+
+  node7:
+    image: geth-signer:latest
+    build:
+      context: ./signer
+      dockerfile: Dockerfile
+    volumes:
+      - ./nodes/node7/keystore:/root/.ethereum/keystore
+      - ./nodes/node7/password.txt:/root/.ethereum/password.txt
+      - node7_data:/root/.ethereum
+    environment:
+      - NODE_NAME=node7
+    ports:
+      - "8507:8545"
+    depends_on:
+      - geth-bootnode
+    networks:
+      chainnet:
+        ipv4_address: 172.25.0.108
+
+  node8:
+    image: geth-node:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./nodes/node8/keystore:/root/.ethereum/keystore
+      - ./nodes/node8/password.txt:/root/.ethereum/password.txt
+      - node8_data:/root/.ethereum
+    environment:
+      - NODE_NAME=node8
+    ports:
+      - "8508:8545"
+    depends_on:
+      - geth-bootnode
+    networks:
+      chainnet:
+        ipv4_address: 172.25.0.109
+
+  node9:
+    image: geth-node:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./nodes/node9/keystore:/root/.ethereum/keystore
+      - ./nodes/node9/password.txt:/root/.ethereum/password.txt
+      - node9_data:/root/.ethereum
+    environment:
+      - NODE_NAME=node9
+    ports:
+      - "8509:8545"
+    depends_on:
+      - geth-bootnode
+    networks:
+      chainnet:
+        ipv4_address: 172.25.0.110
+
+  node10:
+    image: geth-node:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./nodes/node10/keystore:/root/.ethereum/keystore
+      - ./nodes/node10/password.txt:/root/.ethereum/password.txt
+      - node10_data:/root/.ethereum
+    environment:
+      - NODE_NAME=node10
+    ports:
+      - "8510:8545"
+    depends_on:
+      - geth-bootnode
+    networks:
+      chainnet:
+        ipv4_address: 172.25.0.111
+
+  node11:
+    image: geth-node:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./nodes/node11/keystore:/root/.ethereum/keystore
+      - ./nodes/node11/password.txt:/root/.ethereum/password.txt
+      - node11_data:/root/.ethereum
+    environment:
+      - NODE_NAME=node11
+    ports:
+      - "8511:8545"
+    depends_on:
+      - geth-bootnode
+    networks:
+      chainnet:
+        ipv4_address: 172.25.0.112
+
+  node12:
+    image: geth-node:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./nodes/node12/keystore:/root/.ethereum/keystore
+      - ./nodes/node12/password.txt:/root/.ethereum/password.txt
+      - node12_data:/root/.ethereum
+    environment:
+      - NODE_NAME=node12
+    ports:
+      - "8512:8545"
+    depends_on:
+      - geth-bootnode
+    networks:
+      chainnet:
+        ipv4_address: 172.25.0.113
+
+  node13:
+    image: geth-node:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./nodes/node13/keystore:/root/.ethereum/keystore
+      - ./nodes/node13/password.txt:/root/.ethereum/password.txt
+      - node13_data:/root/.ethereum
+    environment:
+      - NODE_NAME=node13
+    ports:
+      - "8513:8545"
+    depends_on:
+      - geth-bootnode
+    networks:
+      chainnet:
+        ipv4_address: 172.25.0.114
+
+  node14:
+    image: geth-node:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./nodes/node14/keystore:/root/.ethereum/keystore
+      - ./nodes/node14/password.txt:/root/.ethereum/password.txt
+      - node14_data:/root/.ethereum
+    environment:
+      - NODE_NAME=node14
+    ports:
+      - "8514:8545"
+    depends_on:
+      - geth-bootnode
+    networks:
+      chainnet:
+        ipv4_address: 172.25.0.115
+
+  node15:
+    image: geth-node:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./nodes/node15/keystore:/root/.ethereum/keystore
+      - ./nodes/node15/password.txt:/root/.ethereum/password.txt
+      - node15_data:/root/.ethereum
+    environment:
+      - NODE_NAME=node15
+    ports:
+      - "8515:8545"
+    depends_on:
+      - geth-bootnode
+    networks:
+      chainnet:
+        ipv4_address: 172.25.0.116
+
+  node16:
+    image: geth-node:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./nodes/node16/keystore:/root/.ethereum/keystore
+      - ./nodes/node16/password.txt:/root/.ethereum/password.txt
+      - node16_data:/root/.ethereum
+    environment:
+      - NODE_NAME=node16
+    ports:
+      - "8516:8545"
+    depends_on:
+      - geth-bootnode
+    networks:
+      chainnet:
+        ipv4_address: 172.25.0.117
+
+  node17:
+    image: geth-node:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./nodes/node17/keystore:/root/.ethereum/keystore
+      - ./nodes/node17/password.txt:/root/.ethereum/password.txt
+      - node17_data:/root/.ethereum
+    environment:
+      - NODE_NAME=node17
+    ports:
+      - "8517:8545"
+    depends_on:
+      - geth-bootnode
+    networks:
+      chainnet:
+        ipv4_address: 172.25.0.118
+
+  node18:
+    image: geth-node:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./nodes/node18/keystore:/root/.ethereum/keystore
+      - ./nodes/node18/password.txt:/root/.ethereum/password.txt
+      - node18_data:/root/.ethereum
+    environment:
+      - NODE_NAME=node18
+    ports:
+      - "8518:8545"
+    depends_on:
+      - geth-bootnode
+    networks:
+      chainnet:
+        ipv4_address: 172.25.0.119
+
+  node19:
+    image: geth-node:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./nodes/node19/keystore:/root/.ethereum/keystore
+      - ./nodes/node19/password.txt:/root/.ethereum/password.txt
+      - node19_data:/root/.ethereum
+    environment:
+      - NODE_NAME=node19
+    ports:
+      - "8519:8545"
+    depends_on:
+      - geth-bootnode
+    networks:
+      chainnet:
+        ipv4_address: 172.25.0.120
+
+  node20:
+    image: geth-node:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./nodes/node20/keystore:/root/.ethereum/keystore
+      - ./nodes/node20/password.txt:/root/.ethereum/password.txt
+      - node20_data:/root/.ethereum
+    environment:
+      - NODE_NAME=node20
+    ports:
+      - "8520:8545"
+    depends_on:
+      - geth-bootnode
+    networks:
+      chainnet:
+        ipv4_address: 172.25.0.121
+
+  node21:
+    image: geth-node:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./nodes/node21/keystore:/root/.ethereum/keystore
+      - ./nodes/node21/password.txt:/root/.ethereum/password.txt
+      - node21_data:/root/.ethereum
+    environment:
+      - NODE_NAME=node21
+    ports:
+      - "8521:8545"
+    depends_on:
+      - geth-bootnode
+    networks:
+      chainnet:
+        ipv4_address: 172.25.0.122
+
+  node22:
+    image: geth-node:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./nodes/node22/keystore:/root/.ethereum/keystore
+      - ./nodes/node22/password.txt:/root/.ethereum/password.txt
+      - node22_data:/root/.ethereum
+    environment:
+      - NODE_NAME=node22
+    ports:
+      - "8522:8545"
+    depends_on:
+      - geth-bootnode
+    networks:
+      chainnet:
+        ipv4_address: 172.25.0.123
+
+  node23:
+    image: geth-node:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./nodes/node23/keystore:/root/.ethereum/keystore
+      - ./nodes/node23/password.txt:/root/.ethereum/password.txt
+      - node23_data:/root/.ethereum
+    environment:
+      - NODE_NAME=node23
+    ports:
+      - "8523:8545"
+    depends_on:
+      - geth-bootnode
+    networks:
+      chainnet:
+        ipv4_address: 172.25.0.124
+
+  node24:
+    image: geth-node:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./nodes/node24/keystore:/root/.ethereum/keystore
+      - ./nodes/node24/password.txt:/root/.ethereum/password.txt
+      - node24_data:/root/.ethereum
+    environment:
+      - NODE_NAME=node24
+    ports:
+      - "8524:8545"
+    depends_on:
+      - geth-bootnode
+    networks:
+      chainnet:
+        ipv4_address: 172.25.0.125
+
+  node25:
+    image: geth-node:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./nodes/node25/keystore:/root/.ethereum/keystore
+      - ./nodes/node25/password.txt:/root/.ethereum/password.txt
+      - node25_data:/root/.ethereum
+    environment:
+      - NODE_NAME=node25
+    ports:
+      - "8525:8545"
+    depends_on:
+      - geth-bootnode
+    networks:
+      chainnet:
+        ipv4_address: 172.25.0.126
+
+  node26:
+    image: geth-node:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./nodes/node26/keystore:/root/.ethereum/keystore
+      - ./nodes/node26/password.txt:/root/.ethereum/password.txt
+      - node26_data:/root/.ethereum
+    environment:
+      - NODE_NAME=node26
+    ports:
+      - "8526:8545"
+    depends_on:
+      - geth-bootnode
+    networks:
+      chainnet:
+        ipv4_address: 172.25.0.127
+
+  node27:
+    image: geth-node:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./nodes/node27/keystore:/root/.ethereum/keystore
+      - ./nodes/node27/password.txt:/root/.ethereum/password.txt
+      - node27_data:/root/.ethereum
+    environment:
+      - NODE_NAME=node27
+    ports:
+      - "8527:8545"
+    depends_on:
+      - geth-bootnode
+    networks:
+      chainnet:
+        ipv4_address: 172.25.0.128
+
+  node28:
+    image: geth-node:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./nodes/node28/keystore:/root/.ethereum/keystore
+      - ./nodes/node28/password.txt:/root/.ethereum/password.txt
+      - node28_data:/root/.ethereum
+    environment:
+      - NODE_NAME=node28
+    ports:
+      - "8528:8545"
+    depends_on:
+      - geth-bootnode
+    networks:
+      chainnet:
+        ipv4_address: 172.25.0.129
+
+  node29:
+    image: geth-node:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./nodes/node29/keystore:/root/.ethereum/keystore
+      - ./nodes/node29/password.txt:/root/.ethereum/password.txt
+      - node29_data:/root/.ethereum
+    environment:
+      - NODE_NAME=node29
+    ports:
+      - "8529:8545"
+    depends_on:
+      - geth-bootnode
+    networks:
+      chainnet:
+        ipv4_address: 172.25.0.130
+
+  node30:
+    image: geth-node:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./nodes/node30/keystore:/root/.ethereum/keystore
+      - ./nodes/node30/password.txt:/root/.ethereum/password.txt
+      - node30_data:/root/.ethereum
+    environment:
+      - NODE_NAME=node30
+    ports:
+      - "8530:8545"
+    depends_on:
+      - geth-bootnode
+    networks:
+      chainnet:
+        ipv4_address: 172.25.0.131
+
+  node31:
+    image: geth-node:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./nodes/node31/keystore:/root/.ethereum/keystore
+      - ./nodes/node31/password.txt:/root/.ethereum/password.txt
+      - node31_data:/root/.ethereum
+    environment:
+      - NODE_NAME=node31
+    ports:
+      - "8531:8545"
+    depends_on:
+      - geth-bootnode
+    networks:
+      chainnet:
+        ipv4_address: 172.25.0.132
+
+  node32:
+    image: geth-node:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./nodes/node32/keystore:/root/.ethereum/keystore
+      - ./nodes/node32/password.txt:/root/.ethereum/password.txt
+      - node32_data:/root/.ethereum
+    environment:
+      - NODE_NAME=node32
+    ports:
+      - "8532:8545"
+    depends_on:
+      - geth-bootnode
+    networks:
+      chainnet:
+        ipv4_address: 172.25.0.133
 
 networks:
   chainnet:
@@ -77,3 +627,37 @@ networks:
     ipam:
       config:
       - subnet: 172.25.0.0/24
+
+volumes:
+  node1_data:
+  node2_data:
+  node3_data:
+  node4_data:
+  node5_data:
+  node6_data:
+  node7_data:
+  node8_data:
+  node9_data:
+  node10_data:
+  node11_data:
+  node12_data:
+  node13_data:
+  node14_data:
+  node15_data:
+  node16_data:
+  node17_data:
+  node18_data:
+  node19_data:
+  node20_data:
+  node21_data:
+  node22_data:
+  node23_data:
+  node24_data:
+  node25_data:
+  node26_data:
+  node27_data:
+  node28_data:
+  node29_data:
+  node30_data:
+  node31_data:
+  node32_data:

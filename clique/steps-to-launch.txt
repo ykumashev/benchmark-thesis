@@ -1,0 +1,14 @@
+To create a new node:
+geth --datadir nodes/node8 account new --password password.txt
+Add it to genesis file as a signer
+
+NETWORK_SIZE=6 docker compose up --build
+
+
+Only 7 signers at start, need to execute add_igners script to add additional signers
+
+
+docker exec -it clique-node2-1 geth attach /root/.ethereum/geth.ipc
+clique.getSigners()
+clique.proposals
+

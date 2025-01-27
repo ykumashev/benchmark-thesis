@@ -1,70 +1,44 @@
 import loadtest from 'loadtest';
 
-// Define the list of available endpoints
-const ports = [
-  '22000',
-  '22001',
-  '22002'
-];
-
-function getRandomPort() {
-  const randomIndex = Math.floor(Math.random() * ports.length);
-  return ports[randomIndex];
-}
-
-// Define the map of `from` addresses based on the endpoint
-const addressMap = {
-  'http://localhost:22000': "0xed9d02e382b34818e88b88a309c7fe71e65f419d",
-  'http://localhost:22001': "0xca843569e3427144cead5e4d5999a3d0ccf92b8e",
-  'http://localhost:22002': "0x0fbdc686b912d7722dc86510934589e0aaf3b55a",
-  'http://localhost:22003': "0x9186eb3d20cbd1f5f992a950d808c4495153abd5",
-  'http://localhost:22004': "0x0638e1574728b6d862dd5d3a3e0942c3be47d996"
-}
-
-function createRequestBody(fromAddress) {
-  return JSON.stringify({
-      jsonrpc: "2.0",
-      method: "eth_sendTransaction",
-      params: [
-      {
-          from: fromAddress,
-          to: fromAddress,
-          value: "0x225a0"
-      }
-      ],
-      id: 1
-  });
-}
-
 const options = {
-  url: 'http://localhost:22002', // This will be overwritten in the requestGenerator
+  url: 'http://localhost:22002',
   method: 'POST',
-  concurrency: 100,
-  maxRequests: 1000,
+  concurrency: 50,
+  maxRequests: 500,
   headers: {
     'Content-Type': 'application/json',
   },
   requestGenerator: (params, options, client, callback) => {
-    const randomPort = getRandomPort();
-    const fromAddress = addressMap['http://localhost:'+randomPort];
-
-    // Copy options to avoid mutation
     var customOptions = Object.assign({}, options);
-    customOptions.port = randomPort;
-    customOptions.body = createRequestBody(fromAddress);
-
+    customOptions.body = JSON.stringify({
+      jsonrpc: "2.0",
+      method: "eth_sendTransaction",
+      params: [
+        {
+          to: '0xed9d02e382b34818e88b88a309c7fe71e65f419d',
+          from: '0xca843569e3427144cead5e4d5999a3d0ccf92b8e',
+          value: "0x225a0"
+        }
+      ],
+      id: 1
+    });
     const request = client(customOptions, callback);
     request.write(customOptions.body);
-    
+
     return request;
   },
   statusCallback: (error, result) => {
     if (error) {  
       console.error('Request error:', error); 
-    }
+    } 
+    // else {
+    //   console.log(`Response Code: ${result.statusCode}`); // Log status code
+    //   console.log(`Request Body: ${options.body}`); // Log the request body
+    //   console.log('Response:', result.body); // Log the response body
+    // }
   }
+  
 };
-
 
 loadtest.loadTest(options, (error, results) => {
   if (error) {

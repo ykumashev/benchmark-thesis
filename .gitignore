@@ -1,0 +1,67 @@
+# Node.js dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Docker
+docker-compose.override.yml
+docker-compose.override.yaml
+docker-compose.override.yml
+docker-compose.override.yaml
+.dockerignore
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Build outputs
+build/
+dist/
+coverage/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+
+# Blockchain data
+clique/nodes/
+clique/signer/keystore/
+clique/signer/password.txt
+clique/signer/jwt.hex
+clique/signer/bootnode_enode
+clique/signer/genesis.json
+clique/bootnode_enode
+clique/password.txt
+clique/genesis.json
+quorum/4nodes/
+quorum/8nodes/
+quorum/16nodes/
+quorum/32nodes/
+tendermint/build/
+
+# Results
+results.json
+
+# React app in frontend/my-app
+frontend/my-app/node_modules/
+frontend/my-app/build/
+frontend/my-app/.env
+frontend/my-app/.env.local
+frontend/my-app/.env.development.local
+frontend/my-app/.env.test.local
+frontend/my-app/.env.production.local

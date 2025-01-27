@@ -1,0 +1,176 @@
+{
+    "blockchains": [
+      {
+        "name": "Quorum",
+        "nodes": 4,
+        "startCommand": "cd ./quorum/4nodes && make localnet-start",
+        "stopCommand": "cd ./quorum/4nodes && make localnet-stop",
+        "warning": "",
+        "endpoint": "http://localhost:22001",
+        "requestBody": {
+            "jsonrpc": "2.0",
+            "method": "eth_sendTransaction",
+            "params": [{
+                "from": "0xed9d02e382b34818e88b88a309c7fe71e65f419d",
+                "to": "0xca843569e3427144cead5e4d5999a3d0ccf92b8e",
+                "value": "0x9184e72a"
+            }]
+        }
+      },
+      {
+        "name": "Quorum",
+        "nodes": 8,
+        "startCommand": "cd ./quorum/8nodes && make localnet-start",
+        "stopCommand": "cd ./quorum/8nodes && make localnet-stop",
+        "warning": "",
+        "endpoint": "http://localhost:22001",
+        "requestBody": {
+            "jsonrpc": "2.0",
+            "method": "eth_sendTransaction",
+            "params": [{
+                "from": "0xed9d02e382b34818e88b88a309c7fe71e65f419d",
+                "to": "0xca843569e3427144cead5e4d5999a3d0ccf92b8e",
+                "value": "0x9184e72a"
+            }]
+        }
+      },
+      {
+        "name": "Quorum",
+        "nodes": 16,
+        "startCommand": "cd ./quorum/16nodes && make localnet-start",
+        "stopCommand": "cd ./quorum/16nodes && make localnet-stop",
+        "warning": "",
+        "endpoint": "http://localhost:22001",
+        "requestBody": {
+            "jsonrpc": "2.0",
+            "method": "eth_sendTransaction",
+            "params": [{
+                "from": "0xed9d02e382b34818e88b88a309c7fe71e65f419d",
+                "to": "0xca843569e3427144cead5e4d5999a3d0ccf92b8e",
+                "value": "0x9184e72a"
+            }]
+        }
+      },
+      {
+        "name": "Quorum",
+        "nodes": 32,
+        "startCommand": "cd ./quorum/32nodes && make localnet-start",
+        "stopCommand": "cd ./quorum/32nodes && make localnet-stop",
+        "warning": "",
+        "endpoint": "http://localhost:22001",
+        "requestBody": {
+            "jsonrpc": "2.0",
+            "method": "eth_sendTransaction",
+            "params": [{
+                "from": "0xed9d02e382b34818e88b88a309c7fe71e65f419d",
+                "to": "0xca843569e3427144cead5e4d5999a3d0ccf92b8e",
+                "value": "0x9184e72a"
+            }]
+        }
+      },
+      {
+        "name": "Tendermint",
+        "nodes": 4,
+        "startCommand": "cd ./tendermint && make localnet-start NUM_NODES=4",
+        "stopCommand": "cd ./tendermint && make localnet-stop",
+        "warning": "After each run, you must remove created nodes manually using \"sudo rm -rf ./build/node*\" in /tendemrint directory of the project",
+        "endpoint": "http://localhost:26657",
+        "requestBody": "RandomText"
+      },
+      {
+        "name": "Tendermint",
+        "nodes": 8,
+        "startCommand": "cd ./tendermint && make localnet-start NUM_NODES=8",
+        "stopCommand": "cd ./tendermint && make localnet-stop",
+        "warning": "After each run, you must remove created nodes manually using \"sudo rm -rf ./build/node*\" in /tendemrint directory of the project",
+        "endpoint": "http://localhost:26657",
+        "requestBody": "RandomText"
+      },
+      {
+        "name": "Tendermint",
+        "nodes": 16,
+        "startCommand": "cd ./tendermint && make localnet-start NUM_NODES=16",
+        "stopCommand": "cd ./tendermint && make localnet-stop",
+        "warning": "After each run, you must remove created nodes manually using \"sudo rm -rf ./build/node*\" in /tendemrint directory of the project",
+        "endpoint": "http://localhost:26657",
+        "requestBody": "RandomText"
+      },
+      {
+        "name": "Tendermint",
+        "nodes": 32,
+        "startCommand": "cd ./tendermint && make localnet-start NUM_NODES=32",
+        "stopCommand": "cd ./tendermint && make localnet-stop",
+        "warning": "After each run, you must remove created nodes manually using \"sudo rm -rf ./build/node*\" in /tendemrint directory of the project",
+        "endpoint": "http://localhost:26657",
+        "requestBody": "RandomText"
+      },
+      {
+        "name": "Clique",
+        "nodes": 4,
+        "startCommand": "cd ./clique && make localnet-start-4",
+        "stopCommand": "cd ./clique && make localnet-stop",
+        "warning": "",
+        "endpoint": "http://localhost:8501",
+        "requestBody": {
+            "jsonrpc": "2.0",
+            "method": "eth_sendTransaction",
+            "params": [{
+                "from": "0xe6e6c441f2a62ece60041bc6410a2d55f96a2aae",
+                "to": "0xf4b36d549e480a555fecab9634d47cebe93266bd",
+                "value": "0x9184e72a"
+            }]
+        }
+      },
+      {
+        "name": "Clique",
+        "nodes": 8,
+        "startCommand": "cd ./clique && make localnet-start-8",
+        "stopCommand": "cd ./clique && make localnet-stop",
+        "warning": "",
+        "endpoint": "http://localhost:8501",
+        "requestBody": {
+            "jsonrpc": "2.0",
+            "method": "eth_sendTransaction",
+            "params": [{
+                "from": "0xe6e6c441f2a62ece60041bc6410a2d55f96a2aae",
+                "to": "0xf4b36d549e480a555fecab9634d47cebe93266bd",
+                "value": "0x9184e72a"
+            }]
+        }
+      },
+      {
+        "name": "Clique",
+        "nodes": 16,
+        "startCommand": "cd ./clique && make localnet-start-16",
+        "stopCommand": "cd ./clique && make localnet-stop",
+        "warning": "",
+        "endpoint": "http://localhost:8501",
+        "requestBody": {
+            "jsonrpc": "2.0",
+            "method": "eth_sendTransaction",
+            "params": [{
+                "from": "0xe6e6c441f2a62ece60041bc6410a2d55f96a2aae",
+                "to": "0xf4b36d549e480a555fecab9634d47cebe93266bd",
+                "value": "0x9184e72a"
+            }]
+        }
+      },
+      {
+        "name": "Clique",
+        "nodes": 32,
+        "startCommand": "cd ./clique && make localnet-start-32",
+        "stopCommand": "cd ./clique && make localnet-stop",
+        "warning": "",
+        "endpoint": "http://localhost:8501",
+        "requestBody": {
+            "jsonrpc": "2.0",
+            "method": "eth_sendTransaction",
+            "params": [{
+                "from": "0xe6e6c441f2a62ece60041bc6410a2d55f96a2aae",
+                "to": "0xf4b36d549e480a555fecab9634d47cebe93266bd",
+                "value": "0x9184e72a"
+            }]
+        }
+      }
+    ]
+}

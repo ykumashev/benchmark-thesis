@@ -1,19 +1,43 @@
-Have 3 nodes running in docker and able to discover each other.
-Got single http curl to send transaction
+Have 4,8,16,32 nodes running that can be executed through each folders make localnet-start command
+Loadtests are also working.
+
+Steps to run:
+cd Xnodes/
+make localnet-start
 
 
-Cd ~/thesis/my-implementation/quorum/quorum-local-raft-network/
-Docker compose up 
 
-Steps to add a new verifier(don’t change genesis block):
-Add nodeX and volX to docker compose
-bootnode -genkey 3nodes/raft/nodekeyX
-geth --datadir 3nodes/dd4 account new -> cp 3nodes/dd4/keystore/* 3nodes/keys/key4
-enode://$(bootnode -nodekey 3nodes/raft/nodekey4 -writeaddress)@172.16.239.14:21000?discport=0&raftport=50400
-Update permissioned-nodes.json
-Update the 3nodes/genesis.json file to include node4's address as a signer: MAYBE
+Steps to add a new verifier(don’t change genesis block):Add nodeX and volX to docker compose:
 
+bootnode -genkey nodes/raft/nodekeyX
+geth --datadir nodes/dd10 account new --password passwords.txt
+cp nodes/dd10/keystore/* nodes/keys/key10
+bootnode -nodekey nodes/raft/nodekey10 -writeaddress
 
 check cluster status
 docker exec -it quorum-node1 geth attach /qdata/dd/geth.ipc
 raft.cluster
+
+
+sudo apt install npm
+npm install loadtest
+
+
+docker volume ls -q | grep quorum | xargs docker volume rm
+
+
+
+curl -X POST http://localhost:8501 \
+  -H "Content-Type: application/json" \
+  -d '{
+    "jsonrpc": "2.0",
+    "method": "eth_sendTransaction",
+    "params": [
+      {
+        "from": "0xe6e6c441f2a62ece60041bc6410a2d55f96a2aae",
+        "to": "0xf4b36d549e480a555fecab9634d47cebe93266bd",
+        "value": "0x225a0"
+      }
+    ],
+    "id": 1
+  }'

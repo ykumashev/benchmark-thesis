@@ -19,7 +19,7 @@ install docker
 sudo usermod -aG docker ${USER} //adds your user to the docker group
 
 
-install docker-compose
+install docker compose
 
 
 tendermint testnet

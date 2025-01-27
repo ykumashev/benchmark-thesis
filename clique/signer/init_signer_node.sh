@@ -18,13 +18,18 @@ geth init --datadir $DATADIR $GENESIS_FILE
 # Wait for bootnode to be ready
 sleep 3
 
+# Extract the account address from the keystore file
+ACCOUNT_ADDRESS=$(ls $DATADIR/keystore | sed 's/.*--//' | sed 's/.json//' | head -n 1)
+
 # Print the command before execution
 echo "Starting geth node with the following command:"
 echo "geth --datadir $DATADIR \\"
 echo "    --networkid 1234 \\"
 echo "    --http --http.port 8545 --http.addr=0.0.0.0 --http.vhosts='*' --http.api='eth,net,web3,personal' \\"
 echo "    --port 30303 --bootnodes $BOOTNODE_ENODE \\"
-echo "    --verbosity 3"
+echo "    --mine --miner.etherbase $ACCOUNT_ADDRESS \\"
+echo "    --unlock $ACCOUNT_ADDRESS --password /root/.ethereum/password.txt \\"
+echo "    --allow-insecure-unlock --verbosity 3"
 
 # Start the geth node
 exec geth --datadir $DATADIR \
@@ -32,4 +37,8 @@ exec geth --datadir $DATADIR \
     --http --http.port 8545 --http.addr=0.0.0.0 --http.vhosts="*" --http.api="eth,net,web3,personal,clique" \
     --port 30303 \
     --bootnodes $BOOTNODE_ENODE \
+    --mine --miner.etherbase $ACCOUNT_ADDRESS \
+    --unlock $ACCOUNT_ADDRESS --password /root/.ethereum/password.txt \
+    --allow-insecure-unlock \
     --verbosity 3
+

@@ -1,0 +1,11 @@
+install go
+sudo chown -R $(whoami):$(whoami) ./build/
+
+
+make localnet-start NUM_NODES=15
+sudo rm -rf ./build/node*       MANUAL STEP
+make localnet-stop
+
+
+https://docs.tendermint.com/v0.34/networks/docker compose.html
+https://docs.tendermint.com/v0.33/introduction/install.html

@@ -34,3 +34,82 @@ tendermint testnet
 
 Quorum:
 everything is inside docker file so no need to install anything
+
+
+
+Azure VM machine setup
+
+username: azureuser
+password: wj7knNH4FWGg
+
+
+Azure vm steps:
+
+Add inbound security rule RDP in Network settings
+Choose RDP as a service, keep others on default choices
+
+
+# Connect to your VM via SSH first
+ssh azureuser@<VM-Public-IP>
+
+# Update packages
+sudo apt update
+
+# Install XFCE (lightweight) + extras
+sudo apt install xfce4 xfce4-goodies -y
+
+# Install xRDP
+sudo apt install xrdp -y
+
+# Configure xrdp to use XFCE
+echo "xfce4-session" | tee ~/.xsession
+
+# Restart xrdp
+sudo systemctl restart xrdp
+
+
+
+
+
+Connect via Remmina on Ubuntu
+
+Configure a New Connection:
+
+    Protocol: RDP
+
+    Server: <VM-Public-IP> (e.g., 20.127.110.201)
+
+    Username: Your VM’s username (e.g., azureuser).
+
+    Password: The password you set for the VM (or use SSH key auth if configured).
+
+    Port: 3389
+
+    Quality: Adjust to Medium or High for better performance.
+
+
+
+
+ON VM:
+Install git
+sudo apt install git -y
+
+
+Install Docker:
+sudo apt install docker.io -y
+
+Install Docker Compose:
+sudo curl -L "https://github.com/docker/compose/releases/download/v2.20.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+
+Install Node.js and npm:
+
+    Install Node.js (includes npm):
+    curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+    sudo apt install nodejs -y
+
+
+
+Backend:
+	npm install in root folder
+	npm start

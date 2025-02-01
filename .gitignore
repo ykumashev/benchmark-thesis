@@ -38,25 +38,6 @@ Thumbs.db
 .vscode/
 .idea/
 
-# Blockchain data
-clique/nodes/
-clique/signer/keystore/
-clique/signer/password.txt
-clique/signer/jwt.hex
-clique/signer/bootnode_enode
-clique/signer/genesis.json
-clique/bootnode_enode
-clique/password.txt
-clique/genesis.json
-quorum/4nodes/
-quorum/8nodes/
-quorum/16nodes/
-quorum/32nodes/
-tendermint/build/
-
-# Results
-results.json
-
 # React app in frontend/my-app
 frontend/my-app/node_modules/
 frontend/my-app/build/

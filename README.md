@@ -24,7 +24,6 @@ tendermint version
 install docker
 sudo usermod -aG docker ${USER} //adds your user to the docker group
 
-
 install docker-compose
 
 
@@ -34,6 +33,9 @@ tendermint testnet
 
 Quorum:
 everything is inside docker file so no need to install anything
+
+
+
 
 
 
@@ -98,9 +100,21 @@ sudo apt install git -y
 Install Docker:
 sudo apt install docker.io -y
 
-Install Docker Compose:
-sudo curl -L "https://github.com/docker/compose/releases/download/v2.20.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+2. Install Docker Compose v1.25.0
+
+Now, download and install Docker Compose v1.25.0:
+
+sudo curl -L "https://github.com/docker/compose/releases/download/1.25.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+
+Grant executable permissions:
+
 sudo chmod +x /usr/local/bin/docker-compose
+
+Verify the installation:
+
+docker-compose --version
+
+
 
 Install Node.js and npm:
 
@@ -108,6 +122,30 @@ Install Node.js and npm:
     curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
     sudo apt install nodejs -y
 
+
+Install make:
+sudo apt install make -y
+
+Install the Docker Compose Plugin:
+sudo apt install docker-compose-plugin -y
+
+
+
+
+Add Your User to the Docker Group (Permanent Fix)
+
+If you don’t want to use sudo every time, add your user to the docker group:
+
+sudo groupadd docker  # Ensure the docker group exists
+sudo usermod -aG docker $USER
+
+Then apply the changes by logging out and back in, or run:
+
+newgrp docker
+
+Now, try running:
+
+docker ps
 
 
 Backend:

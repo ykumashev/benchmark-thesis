@@ -257,6 +257,7 @@ app.post('/blockchain', async (req, res) => {
             console.log(`\nStarting iteration ${i}/5...`);
             const dockerStats = new DockerStats();
             await dockerStats.startMonitoring();
+            await new Promise(resolve => setTimeout(resolve, 500));
 
             try {
                 let result;

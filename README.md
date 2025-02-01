@@ -132,7 +132,7 @@ sudo apt install docker-compose-plugin -y
 
 
 
-Add Your User to the Docker Group (Permanent Fix)
+Add Your User to the Docker Group (Permanent Fix), do it in every window you create.
 
 If you don’t want to use sudo every time, add your user to the docker group:
 
@@ -146,6 +146,7 @@ newgrp docker
 Now, try running:
 
 docker ps
+docker ps -q | xargs -L 1 -P `docker ps | wc -l` docker logs --since 30s -f
 
 
 Backend:
